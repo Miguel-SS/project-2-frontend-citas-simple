@@ -6,24 +6,32 @@ import java.util.Date;
 
 public class Appointment {
 
+    @SerializedName("id")
     private int id;
 
+    @SerializedName("patient")
     private Patient patient;
 
+    @SerializedName("hospital")
     private Hospital hospital;
 
+    @SerializedName("doctor")
     private Doctor doctor;
 
+    @SerializedName("date")
     private Date date;
 
+    @SerializedName("hour")
     private String hour;
 
+    @SerializedName("typeOfService_id")
     private String typeOfService_id;
 
+    @SerializedName("totalCost")
     private double totalCost;
 
+    @SerializedName("active")
     private boolean active;
-
 
 
 

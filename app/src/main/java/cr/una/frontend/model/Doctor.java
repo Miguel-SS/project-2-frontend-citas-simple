@@ -1,11 +1,22 @@
 package cr.una.frontend.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Doctor {
 
+    @SerializedName("id")
     private int id;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("lastName")
     private String lastName;
+
+    @SerializedName("type")
     private String type_id;
+
+    @SerializedName("premium")
     private boolean premium;
 
     /**

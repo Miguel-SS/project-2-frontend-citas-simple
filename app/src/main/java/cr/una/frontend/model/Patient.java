@@ -1,18 +1,37 @@
 package cr.una.frontend.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Patient {
 
     // Attributes
+    @SerializedName("id")
     private int id;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("lastName")
     private String lastName;
+
+    @SerializedName("birthYear")
     private Date birthYear;
+
+    @SerializedName("password")
     private String password;
+
+    @SerializedName("phone")
     private String phone;
+
+    @SerializedName("address")
     private String address;
+
+    @SerializedName("disease")
     private String disease;
+
+    @SerializedName("observation")
     private String observation;
 
     /**
