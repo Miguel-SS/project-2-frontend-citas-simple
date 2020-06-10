@@ -18,6 +18,4 @@ public interface AppointmentService {
 
     @PUT("appointments/{id}")
     Call<ResponseBody> update(@Path("id") int id, @Body Appointment appointment);
-
-
 }
