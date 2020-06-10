@@ -19,13 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //init the retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.WS_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
+        appointmentService = retrofit.create(AppointmentService.class);
+
     }
-
-
-
 }
