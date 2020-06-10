@@ -9,7 +9,7 @@
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         tools:context=".activity.MainActivity"
-        android:background="@color/colorWhite"
+        android:background="@color/colorGray"
         android:orientation="vertical">
 
     <LinearLayout
@@ -22,6 +22,7 @@
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/appointment_code_hint"
+                android:textColorHint="@color/colorPrimary"
                 android:gravity="center"
                 android:inputType="number"
                 android:autofillHints="@string/appointment_code_hint">
@@ -43,13 +44,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/colorGrayLight">
+            android:background="@color/colorGray"
+            android:paddingTop="25dp"
+            android:paddingBottom="50dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="@string/details_title"
+                android:textColor="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                tools:ignore="RtlSymmetry">
+
+        </TextView>
+
+        <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/colorAccent" />
 
         <TextView
                 android:id="@+id/patientTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nameLbl">
+                android:text="@string/nameLbl"
+                android:paddingStart="10dp"
+                tools:ignore="RtlSymmetry">
 
         </TextView>
 
@@ -57,7 +79,9 @@
                 android:id="@+id/doctorTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/doctorLbl">
+                android:text="@string/doctorLbl"
+                android:paddingStart="10dp"
+                tools:ignore="RtlSymmetry">
 
         </TextView>
 
@@ -65,7 +89,9 @@
                 android:id="@+id/dateTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dateLbl">
+                android:text="@string/dateLbl"
+                android:paddingStart="10dp"
+                tools:ignore="RtlSymmetry">
 
         </TextView>
 
@@ -73,7 +99,9 @@
                 android:id="@+id/serviceTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/serviceLbl">
+                android:text="@string/serviceLbl"
+                android:paddingStart="10dp"
+                tools:ignore="RtlSymmetry">
 
         </TextView>
 
@@ -88,7 +116,9 @@
                 android:id="@+id/costTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/costLbl">
+                android:text="@string/costLbl"
+                android:paddingStart="10dp"
+                tools:ignore="RtlSymmetry">
 
         </TextView>
 
@@ -99,7 +129,8 @@
             android:id="@+id/confirmBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/confirm">
+            android:text="@string/confirm"
+            android:layout_gravity="center">
 
     </Button>
 
