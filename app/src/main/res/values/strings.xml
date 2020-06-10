@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">Administración de citas</string>
-    <string name="iniciar_sesi_n">Iniciar Sesión</string>
-    <string name="registrarse">Registrarse</string>
-    <string name="id_hint">ID</string>
-    <string name="pass_hint">Password</string>
+    <string name="app_name">Administración de citas: </string>
+    <string name="appointment_code_hint">Código de cita: </string>
+    <string name="nameLbl">Nombre de paciente: </string>
+    <string name="doctorLbl">Médico: </string>
+    <string name="dateLbl">Fecha: </string>
+    <string name="serviceLbl">Servicio: </string>
+    <string name="costLbl">Costo total: </string>
+    <string name="accept">Aceptar</string>
 </resources>
