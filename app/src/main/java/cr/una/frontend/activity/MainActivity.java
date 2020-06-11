@@ -12,6 +12,9 @@ import cr.una.frontend.model.Appointment;
 import cr.una.frontend.service.AppointmentService;
 import cr.una.frontend.utilities.Constants;
 import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,13 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private AppointmentService appointmentService;
     private Appointment appointment;
     private EditText idAppointment;
-    private Button searchBttn;
+    private Button searchBtn;
     private TextView patientTxt;
     private TextView doctorTxt;
     private TextView dateTxt;
     private TextView typeTxt;
     private TextView costTxt;
-    private TextView aceptBttn;
+    private TextView acceptBtn;
 
 
 
@@ -53,21 +56,21 @@ public class MainActivity extends AppCompatActivity {
     public void initWidgets(){
 
         idAppointment = (EditText) findViewById(R.id.codeAppointmentTxt);
-        searchBttn = (Button) findViewById(R.id.acceptBtn);
+        searchBtn = (Button) findViewById(R.id.acceptBtn);
         patientTxt = (EditText) findViewById(R.id.patientTxt);
         doctorTxt = (EditText) findViewById(R.id.doctorTxt);
         costTxt = (EditText) findViewById(R.id.costTxt);
-        aceptBttn = (Button) findViewById(R.id.confirmBtn);
+        acceptBtn = (Button) findViewById(R.id.confirmBtn);
 
-        searchBttn.setOnClickListener(new View.OnClickListener() {
+        searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validerAppointment();
+                validateAppointment();
             }
         });
 
 
-        aceptBttn.setOnClickListener(new View.OnClickListener() {
+        acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -79,10 +82,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void validerAppointment(){
-        int id = Integer.parseInt(searchBttn.getText().toString());
+    private void validateAppointment(){
+        int id = Integer.parseInt(searchBtn.getText().toString());
         Single<Appointment> appointmentSingle = appointmentService.findById(id);
-        appointment = ;
     }
 
 
