@@ -28,6 +28,6 @@ public interface AppointmentService {
     Call<List<TypeOfService>> findAllTypes();
 
     @GET("appointments/typeOfService/{id}")
-    Single<TypeOfService> findTypeById(@Path("id") String id);
+    Call<TypeOfService> findTypeById(@Path("id") String id);
 
 }
