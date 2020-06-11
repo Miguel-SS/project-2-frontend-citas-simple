@@ -8,4 +8,5 @@
     <string name="costLbl">Costo total: </string>
     <string name="accept">Aceptar</string>
     <string name="confirm">Confirmar Cita</string>
+    <string name="details_title">Detalle de la cita</string>
 </resources>
