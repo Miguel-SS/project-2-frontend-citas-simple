@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         appointment = appointmentSingle.blockingGet();
         if (appointment!=null){
             patientTxt.setText(appointment.getPatient().getName()+" "+ appointment.getPatient().getLastName());
-            
+
         }
         else{
             Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
