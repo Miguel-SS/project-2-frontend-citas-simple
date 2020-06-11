@@ -1,17 +1,23 @@
 package cr.una.frontend.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class DoctorType {
 
+    @Expose
     @SerializedName("_id")
     private IdType id;
+    @Expose
     @SerializedName("tipo")
     private String type;
+    @Expose
     @SerializedName("salario")
     private double salary;
+    @Expose
     @SerializedName("moneda")
     private String coin;
+    @Expose
     @SerializedName("codigo-medico")
     private String code;
 

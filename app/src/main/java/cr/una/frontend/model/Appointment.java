@@ -1,35 +1,45 @@
 package cr.una.frontend.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
 public class Appointment {
 
+    @Expose
     @SerializedName("id")
     private int id;
 
+    @Expose
     @SerializedName("patient")
     private Patient patient;
 
+    @Expose
     @SerializedName("hospital")
     private Hospital hospital;
 
+    @Expose
     @SerializedName("doctor")
     private Doctor doctor;
 
+    @Expose
     @SerializedName("date")
     private Date date;
 
+    @Expose
     @SerializedName("hour")
     private String hour;
 
+    @Expose
     @SerializedName("typeOfService_id")
     private String typeOfService_id;
 
+    @Expose
     @SerializedName("totalCost")
     private double totalCost;
 
+    @Expose
     @SerializedName("active")
     private boolean active;
 

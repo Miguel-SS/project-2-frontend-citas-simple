@@ -1,15 +1,20 @@
 package cr.una.frontend.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class TypeOfService {
 
+    @Expose
     @SerializedName("_id")
     private IdType id;
+    @Expose
     @SerializedName("servicio")
     private String service;
+    @Expose
     @SerializedName("costo-porcentual")
     private float percentageCost;
+    @Expose
     @SerializedName("codigo-medico")
     private String medicalCode;
 
