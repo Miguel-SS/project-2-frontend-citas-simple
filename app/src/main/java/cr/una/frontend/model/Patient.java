@@ -1,5 +1,6 @@
 package cr.una.frontend.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -7,30 +8,39 @@ import java.util.Date;
 public class Patient {
 
     // Attributes
+    @Expose
     @SerializedName("id")
     private int id;
 
+    @Expose
     @SerializedName("name")
     private String name;
 
+    @Expose
     @SerializedName("lastName")
     private String lastName;
 
+    @Expose
     @SerializedName("birthYear")
     private Date birthYear;
 
+    @Expose
     @SerializedName("password")
     private String password;
 
+    @Expose
     @SerializedName("phone")
     private String phone;
 
+    @Expose
     @SerializedName("address")
     private String address;
 
+    @Expose
     @SerializedName("disease")
     private String disease;
 
+    @Expose
     @SerializedName("observation")
     private String observation;
 

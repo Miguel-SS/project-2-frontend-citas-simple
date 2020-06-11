@@ -18,9 +18,15 @@ import io.reactivex.SingleObserver;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.io.IOException;
+import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -47,7 +53,6 @@ public class MainActivity extends Activity {
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.WS_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         appointmentService = retrofit.create(AppointmentService.class);
 
@@ -66,7 +71,11 @@ public class MainActivity extends Activity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateAppointment();
+                try {
+                    validateAppointment();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -81,26 +90,10 @@ public class MainActivity extends Activity {
 
     }
 
-    private void validateAppointment(){
+    private void validateAppointment() throws IOException {
         int id = Integer.parseInt(idAppointment.getText().toString());
-        Single<Appointment> appointmentSingle = appointmentService.findById(id);
-        appointmentSingle.subscribe(new SingleObserver<Appointment>()
-        {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                compositeDisposable.add(d);
-            }
-
-            @Override
-            public void onSuccess(@NonNull Appointment appointment) {
-                patientTxt.setText(appointment.getPatient().getName()+" "+appointment.getPatient().getLastName());
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-
-            }
-        });
+        Call<Appointment> appointmentSingle = appointmentService.findById(id);
+        Appointment appointment = appointmentSingle.execute().body();
 
 
     }
