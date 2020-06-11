@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import cr.una.frontend.R;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("WrongViewCast")
     public void initWidgets(){
 
+        appointment = null;
         idAppointment = (EditText) findViewById(R.id.codeAppointmentTxt);
         searchBttn = (Button) findViewById(R.id.acceptBtn);
         patientTxt = (EditText) findViewById(R.id.patientTxt);
@@ -82,7 +84,13 @@ public class MainActivity extends AppCompatActivity {
     private void validerAppointment(){
         int id = Integer.parseInt(searchBttn.getText().toString());
         Single<Appointment> appointmentSingle = appointmentService.findById(id);
-        appointment = ;
+        appointment = appointmentSingle.blockingGet();
+        if (appointment!=null){
+            patientTxt.setText(appointment.getPatient().getName()+" "+ appointment.getPatient().getLastName());
+        }
+        else{
+            Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
