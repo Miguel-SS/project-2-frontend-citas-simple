@@ -27,6 +27,8 @@ public class MainActivity extends Activity {
     private Retrofit retrofit;
     private AppointmentService appointmentService;
     private Appointment appointment;
+    CompositeDisposable compositeDisposable;
+
     private EditText idAppointment;
     private Button searchBtn;
     private TextView patientTxt;
@@ -83,10 +85,10 @@ public class MainActivity extends Activity {
 
     private void validateAppointment(){
         int id = Integer.parseInt(idAppointment.getText().toString());
-        Single<Appointment> appointmentSingle = appointmentService.findById(id).subscribe(new SingleObserver<Appointment>() {
+        Single<Appointment> appointmentSingle = appointmentService.findById(id)
+                .subscribe(new SingleObserver<Appointment>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
-                CompositeDisposable compositeDisposable = new CompositeDisposable();
                 compositeDisposable.add(d);
             }
 
@@ -99,10 +101,16 @@ public class MainActivity extends Activity {
             public void onError(@NonNull Throwable e) {
 
             }
-        })
+        });
     }
 
-
+    @Override
+    protected void onDestroy() {
+        if (!compositeDisposable.isDisposed()) {
+            compositeDisposable.dispose();
+        }
+        super.onDestroy();
+    }
 }
 
 
