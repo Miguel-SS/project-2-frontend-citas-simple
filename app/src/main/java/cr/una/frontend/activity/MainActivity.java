@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
 
     private Retrofit retrofit;
     private AppointmentService appointmentService;
-    CompositeDisposable compositeDisposable;
+    private Appointment appointment;
 
     private EditText idAppointment;
     private Button searchBtn;
@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        appointment = null;
         //init the retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.WS_ENDPOINT)
@@ -93,18 +94,24 @@ public class MainActivity extends Activity {
     private void validateAppointment() throws IOException {
         int id = Integer.parseInt(idAppointment.getText().toString());
         Call<Appointment> appointmentSingle = appointmentService.findById(id);
-        Appointment appointment = appointmentSingle.execute().body();
+        appointment = appointmentSingle.execute().body();
+        if (appointment!=null){
+
+            patientTxt.setText(patientTxt.getText().toString()+" "+appointment.getPatient().getName()+" "+
+                    appointment.getPatient().getLastName());
+            doctorTxt.setText(doctorTxt.getText().toString()+" "+appointment.getDoctor().getName()+" "+
+                    appointment.getDoctor().getLastName());
 
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (!compositeDisposable.isDisposed()) {
-            compositeDisposable.dispose();
         }
-        super.onDestroy();
+        else{
+            Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
+
+
 }
 
 
