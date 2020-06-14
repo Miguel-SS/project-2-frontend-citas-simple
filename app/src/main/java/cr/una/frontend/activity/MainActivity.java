@@ -19,6 +19,7 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     private Retrofit retrofit;
+    private String typeService;
     private AppointmentService appointmentService;
     //private Appointment appointment;
     private EditText idAppointment;
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         searchBtn = findViewById(R.id.acceptBtn);
         patientTxt = findViewById(R.id.patientTxt);
         doctorTxt = findViewById(R.id.doctorTxt);
+        dateTxt = findViewById(R.id.dateTxt);
+        typeTxt = findViewById(R.id.serviceTxt);
         costTxt = findViewById(R.id.costTxt);
         acceptBtn = findViewById(R.id.confirmBtn);
         searchBtn.setOnClickListener(new View.OnClickListener() {
@@ -116,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
                             appointment.getDate().getDay() + "/" +
                             appointment.getDate().getMonth() + "/" +
                             appointment.getDate().getYear());
-                    typeTxt.setText(getString(R.string.serviceLbl)  + " " +
-                            getTypeOfService(appointment.getTypeOfService_id()));
-                    costTxt.setText(getString(R.string.costLbl)  + " " + appointment.getTotalCost());
+                    getTypeOfService(appointment.getTypeOfService_id());
+                    typeTxt.setText(getString(R.string.serviceLbl)  + " " + typeService);
+                    costTxt.setText(getString(R.string.costLbl)  + " " + String.valueOf(appointment.getTotalCost()));
                 } else {
                     Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
                 }
@@ -132,13 +135,12 @@ public class MainActivity extends AppCompatActivity {
      * @param id id
      * @return type of service from data base.
      */
-    private TypeOfService getTypeOfService(String id) {
-        final TypeOfService[] type = {null};
+    private void getTypeOfService(String id) {
         Call<TypeOfService> request = appointmentService.findTypeById(id);
         request.enqueue(new Callback<TypeOfService>() {
             @Override
             public void onResponse(Call<TypeOfService> call, Response<TypeOfService> response) {
-                type[0] = getTypeInfo(response.body());
+                 getTypeInfo(response.body());
             }
 
             @Override
@@ -146,19 +148,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        return type[0];
+
     }
 
 
-    private TypeOfService getTypeInfo(final TypeOfService typeOfService){
-        final TypeOfService[] type = {null};
+    private void getTypeInfo(final TypeOfService typeOfService){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                type[0] = typeOfService;
+             typeService = typeOfService.getService();
             }
         });
-        return type[0];
     }
 
 
