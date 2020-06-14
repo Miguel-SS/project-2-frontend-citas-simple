@@ -174,7 +174,7 @@ public class Appointment {
 
     /**
      * getter
-     * @return  id type of Service
+     * @return  id type of RetroClient
      */
     public String getTypeOfService_id() {
         return typeOfService_id;

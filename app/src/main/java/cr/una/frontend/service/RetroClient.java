@@ -4,11 +4,11 @@ import cr.una.frontend.utilities.Constants;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Service {
+public class RetroClient {
 
     private static Retrofit retrofit = null;
 
-    public static Retrofit getRetrofit() {
+    public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(Constants.WS_ENDPOINT)

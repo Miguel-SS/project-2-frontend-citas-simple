@@ -5,22 +5,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import cr.una.frontend.R;
 import cr.una.frontend.model.Appointment;
 import cr.una.frontend.service.AppointmentService;
-import cr.una.frontend.service.Service;
+import cr.una.frontend.service.RetroClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
+
     private Retrofit retrofit;
     private AppointmentService appointmentService;
-    //private Appointment appointment;
+
     private EditText idAppointment;
     private Button searchBtn;
     private TextView patientTxt;
@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //init retrofit
-        retrofit = Service.getRetrofit();
+        retrofit = RetroClient.getClient();
         appointmentService = retrofit.create(AppointmentService.class);
         initWidgets();
     }
+
     public void initWidgets(){
         /**
          * Notas de Jason:
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void validateAppointment() {
         /**
          * Notas de Jason:
@@ -108,8 +110,6 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<Appointment> call, Throwable t) {
-                //Notifiquen con un toast o algun mensaje que la llamada al servicio falló, el objeto Throwable siempre tiene
-                //más información del error que les va a seguir para arreglar errores en caso de fallo
                 Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -2,7 +2,6 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/login_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingVertical="75dp"
@@ -38,7 +37,6 @@
 
         </Button>
 
-
     </LinearLayout>
 
     <LinearLayout
@@ -62,10 +60,9 @@
         </TextView>
 
         <View
-                android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:background="@color/colorAccent" />
+                android:background="@color/colorAccent"/>
 
         <TextView
                 android:id="@+id/patientTxt"
@@ -124,7 +121,6 @@
 
         </TextView>
 
-
     </LinearLayout>
 
     <Button
@@ -135,6 +131,5 @@
             android:layout_gravity="center">
 
     </Button>
-
 
 </LinearLayout>
