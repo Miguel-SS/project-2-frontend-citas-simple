@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
                             appointment.getDate().getDay() + "/" +
                             appointment.getDate().getMonth() + "/" +
                             appointment.getDate().getYear());
-                    typeTxt.setText(getString(R.string.serviceLbl)  + " " +
-                            getTypeOfService(appointment.getTypeOfService_id()));
+                    getTypeOfService(appointment.getTypeOfService_id());
+                    typeTxt.setText(getString(R.string.serviceLbl)  + " " + typeService);
                     costTxt.setText(getString(R.string.costLbl)  + " " + String.valueOf(appointment.getTotalCost()));
                 } else {
                     Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
@@ -152,15 +152,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private TypeOfService getTypeInfo(final TypeOfService typeOfService){
-        final TypeOfService[] type = {null};
+    private void getTypeInfo(final TypeOfService typeOfService){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                type[0] = typeOfService;
+             typeService = typeOfService.getService();
             }
         });
-        return type[0];
     }
 
 
