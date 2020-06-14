@@ -1,4 +1,4 @@
-<resources>
+    <resources>
     <string name="app_name">Administración de citas: </string>
     <string name="appointment_code_hint">Código de cita</string>
     <string name="nameLbl">Nombre de paciente: </string>
