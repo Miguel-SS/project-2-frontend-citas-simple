@@ -46,16 +46,6 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     public void initWidgets() {
-        /**
-         * Notas de Jason:
-         * Si les interesa una forma más eficiente de inicializar componentes de UI.
-         * Les recomiendo que se busquen como se utiliza la librería llamada butterknife,
-         * y como se implementa el BindView. Utiliza un concepto muy interesante llamado
-         * inyección de dependencias para evitarles a uds en el código, la instanciación de componentes de UI
-         * como se hace en este método.
-         *
-         * Así como está funciona perfecto, es solo si tienen curiosidad de aprender otra forma de hacerlo
-         * */
         idAppointment = findViewById(R.id.codeAppointmentTxt);
         searchBtn = findViewById(R.id.acceptBtn);
         patientTxt = findViewById(R.id.patientTxt);
