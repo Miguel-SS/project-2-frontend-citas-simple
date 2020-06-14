@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import cr.una.frontend.R;
+import cr.una.frontend.databinding.ActivityMainBinding;
 import cr.una.frontend.model.Appointment;
 import cr.una.frontend.model.TypeOfService;
 import cr.una.frontend.service.AppointmentService;
@@ -23,19 +24,16 @@ public class MainActivity extends AppCompatActivity {
     private AppointmentService appointmentService;
     private Appointment appointment;
 
-    private EditText idAppointment;
-    private Button searchBtn;
-    private TextView patientTxt;
-    private TextView doctorTxt;
-    private TextView dateTxt;
-    private TextView typeTxt;
-    private TextView costTxt;
-    private Button acceptBtn;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
         //init retrofit
         retrofit = RetroClient.getClient();
         appointmentService = retrofit.create(AppointmentService.class);
@@ -46,21 +44,13 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     public void initWidgets() {
-        idAppointment = findViewById(R.id.codeAppointmentTxt);
-        searchBtn = findViewById(R.id.acceptBtn);
-        patientTxt = findViewById(R.id.patientTxt);
-        doctorTxt = findViewById(R.id.doctorTxt);
-        dateTxt = findViewById(R.id.dateTxt);
-        typeTxt = findViewById(R.id.serviceTxt);
-        costTxt = findViewById(R.id.costTxt);
-        acceptBtn = findViewById(R.id.confirmBtn);
-        searchBtn.setOnClickListener(new View.OnClickListener() {
+        binding.acceptBtn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             validateAppointment();
         }
     });
-        acceptBtn.setOnClickListener(new View.OnClickListener() {
+        binding.confirmBtn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             updateLbls();
@@ -72,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void validateAppointment() {
 
-        int id = Integer.parseInt(idAppointment.getText().toString());
+        int id = Integer.parseInt(binding.codeAppointmentTxt.getText().toString());
         Call<Appointment> request = appointmentService.findById(id);
         request.enqueue(new Callback<Appointment>() {
             @Override
@@ -93,19 +83,19 @@ public class MainActivity extends AppCompatActivity {
                 if (appointmentAux != null) {
                     appointment = appointmentAux;
 
-                    patientTxt.setText(getString(R.string.nameLbl) + " " +
+                    binding.patientTxt.setText(getString(R.string.nameLbl) + " " +
                             appointmentAux.getPatient().getName() + " " +
                             appointmentAux.getPatient().getLastName());
-                    doctorTxt.setText( getString(R.string.doctorLbl) + " " +
+                    binding.doctorTxt.setText( getString(R.string.doctorLbl) + " " +
                             appointmentAux.getDoctor().getName() + " " +
                             appointmentAux.getDoctor().getLastName());
-                    dateTxt.setText(getString(R.string.dateLbl)  + " " +
+                    binding.dateTxt.setText(getString(R.string.dateLbl)  + " " +
                             appointmentAux.getDate().getDay() + "/" +
                             appointmentAux.getDate().getMonth() + "/" +
                             appointmentAux.getDate().getYear());
                     getTypeOfService(appointmentAux.getTypeOfService_id());
-                    typeTxt.setText(getString(R.string.serviceLbl)  + " " + typeService);
-                    costTxt.setText(getString(R.string.costLbl)  + " " + appointmentAux.getTotalCost());
+                    binding.serviceTxt.setText(getString(R.string.serviceLbl)  + " " + typeService);
+                    binding.costTxt.setText(getString(R.string.costLbl)  + " " + appointmentAux.getTotalCost());
                 } else {
                     Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
                 }
@@ -144,11 +134,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void updateLbls(){
-        patientTxt.setText(getString(R.string.nameLbl));
-        doctorTxt.setText(getString(R.string.doctorLbl));
-        dateTxt.setText(getString(R.string.dateLbl));
-        typeTxt.setText(getString(R.string.serviceLbl));
-        costTxt.setText(getString(R.string.costLbl));
+        binding.patientTxt.setText(getString(R.string.nameLbl));
+        binding.doctorTxt.setText(getString(R.string.doctorLbl));
+        binding.dateTxt.setText(getString(R.string.dateLbl));
+        binding.serviceTxt.setText(getString(R.string.serviceLbl));
+        binding.costTxt.setText(getString(R.string.costLbl));
 
         Call<Appointment> request = appointmentService.update(appointment.getId(), appointment);
 
