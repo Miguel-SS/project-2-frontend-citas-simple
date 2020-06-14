@@ -58,12 +58,20 @@ public class MainActivity extends AppCompatActivity {
         searchBtn = findViewById(R.id.acceptBtn);
         patientTxt = findViewById(R.id.patientTxt);
         doctorTxt = findViewById(R.id.doctorTxt);
-        dateTxt = findViewById(R.id.dateTxt);
-        typeTxt = findViewById(R.id.serviceTxt);
         costTxt = findViewById(R.id.costTxt);
         acceptBtn = findViewById(R.id.confirmBtn);
-        searchBtn.setOnClickListener(v -> validateAppointment());
-        acceptBtn.setOnClickListener(v -> upDateLbls());
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            validateAppointment();
+        }
+    });
+        acceptBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            upDateLbls();
+        }
+    });
 
 
 }
@@ -96,21 +104,24 @@ public class MainActivity extends AppCompatActivity {
          dejo acá como pueden hacer para solucioar el problema.
          El método runOnUIThread obliga que el contenido del Runnable se ejecute de esa forma.
          */
-        runOnUiThread(() -> {
-            if (appointment != null) {
-                patientTxt.setText(getString(R.string.nameLbl) + " " + appointment.getPatient().getName() + " " +
-                        appointment.getPatient().getLastName());
-                doctorTxt.setText( getString(R.string.doctorLbl) + " " + appointment.getDoctor().getName() + " " +
-                        appointment.getDoctor().getLastName());
-                dateTxt.setText(getString(R.string.dateLbl)  + " " +
-                        appointment.getDate().getDay() + "/" +
-                        appointment.getDate().getMonth() + "/" +
-                        appointment.getDate().getYear());
-                typeTxt.setText(getString(R.string.serviceLbl)  + " " +
-                        getTypeOfService(appointment.getTypeOfService_id()));
-                costTxt.setText(getString(R.string.costLbl)  + " " + appointment.getTotalCost());
-            } else {
-                Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (appointment != null) {
+                    patientTxt.setText(getString(R.string.nameLbl) + " " + appointment.getPatient().getName() + " " +
+                            appointment.getPatient().getLastName());
+                    doctorTxt.setText( getString(R.string.doctorLbl) + " " + appointment.getDoctor().getName() + " " +
+                            appointment.getDoctor().getLastName());
+                    dateTxt.setText(getString(R.string.dateLbl)  + " " +
+                            appointment.getDate().getDay() + "/" +
+                            appointment.getDate().getMonth() + "/" +
+                            appointment.getDate().getYear());
+                    typeTxt.setText(getString(R.string.serviceLbl)  + " " +
+                            getTypeOfService(appointment.getTypeOfService_id()));
+                    costTxt.setText(getString(R.string.costLbl)  + " " + String.valueOf(appointment.getTotalCost()));
+                } else {
+                    Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -141,17 +152,22 @@ public class MainActivity extends AppCompatActivity {
 
     private TypeOfService getTypeInfo(final TypeOfService typeOfService){
         final TypeOfService[] type = {null};
-        runOnUiThread(() -> type[0] = typeOfService);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                type[0] = typeOfService;
+            }
+        });
         return type[0];
     }
 
 
-    private void upDateLbls(){
-        patientTxt.setText(getString(R.string.nameLbl));
-        doctorTxt.setText(getString(R.string.doctorLbl));
-        dateTxt.setText(getString(R.string.dateLbl));
-        typeTxt.setText(getString(R.string.serviceLbl));
-        costTxt.setText(getString(R.string.costLbl));
-    }
+private void upDateLbls(){
+    patientTxt.setText(getString(R.string.nameLbl));
+    doctorTxt.setText(getString(R.string.doctorLbl));
+    dateTxt.setText(getString(R.string.dateLbl));
+    typeTxt.setText(getString(R.string.serviceLbl));
+    costTxt.setText(getString(R.string.costLbl));
+}
 
 }
