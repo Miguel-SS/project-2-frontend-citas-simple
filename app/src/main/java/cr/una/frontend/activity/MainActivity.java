@@ -1,5 +1,4 @@
 package cr.una.frontend.activity;
-import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +9,7 @@ import android.os.Bundle;
 import cr.una.frontend.R;
 import cr.una.frontend.model.Appointment;
 import cr.una.frontend.service.AppointmentService;
-import cr.una.frontend.service.Service;
+import cr.una.frontend.service.RetroClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //init retrofit
-        retrofit = Service.getRetrofit();
+        retrofit = RetroClient.getClient();
         appointmentService = retrofit.create(AppointmentService.class);
         initWidgets();
     }
