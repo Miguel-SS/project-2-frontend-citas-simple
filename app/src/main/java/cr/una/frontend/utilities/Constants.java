@@ -5,6 +5,6 @@ public class Constants {
     /**
      *
      */
-    public static final String WS_ENDPOINT = "http://localhost:8083/api/";
+    public static final String WS_ENDPOINT = "http://192.168.100.29:8083/api/";
 
 }

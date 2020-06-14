@@ -6,10 +6,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Service {
 
-    private static Retrofit retrofit;
+    private static Retrofit retrofit = null;
 
     public static Retrofit getRetrofit() {
-        if (retrofit != null) {
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(Constants.WS_ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create())

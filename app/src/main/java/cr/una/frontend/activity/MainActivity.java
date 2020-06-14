@@ -11,14 +11,13 @@ import cr.una.frontend.R;
 import cr.una.frontend.model.Appointment;
 import cr.una.frontend.service.AppointmentService;
 import cr.una.frontend.service.Service;
-import cr.una.frontend.utilities.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import java.io.IOException;
-public class MainActivity extends Activity {
+
+
+public class MainActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private AppointmentService appointmentService;
     //private Appointment appointment;
@@ -35,15 +34,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /**
-         * Notas de Jason:
-         * Si su applicación va a crecer y van a tener más de una actividad en donde necesiten llamar
-         * a otros web services, van a necesitar instanciar Retrofit en cada una de ellas.
-         * Como sugerencia, para evitar duplicar código les recomiendo que se hagan una clase de java o Kotlin normal aparte
-         * con un método get de tipo static, que les retorne el objeto Retrofit,
-         * así cada actividad simplemente llama al mismo método get y el código se ve más limpio :)
-         * */
-        //init the retrofit
+        //init retrofit
         retrofit = Service.getRetrofit();
         appointmentService = retrofit.create(AppointmentService.class);
         initWidgets();
@@ -119,6 +110,7 @@ public class MainActivity extends Activity {
             public void onFailure(Call<Appointment> call, Throwable t) {
                 //Notifiquen con un toast o algun mensaje que la llamada al servicio falló, el objeto Throwable siempre tiene
                 //más información del error que les va a seguir para arreglar errores en caso de fallo
+                Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
