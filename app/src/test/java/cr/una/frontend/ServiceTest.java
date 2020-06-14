@@ -5,7 +5,6 @@ import cr.una.frontend.model.Appointment;
 import cr.una.frontend.model.TypeOfService;
 import cr.una.frontend.service.AppointmentService;
 import cr.una.frontend.utilities.Constants;
-import okhttp3.ResponseBody;
 import org.junit.Before;
 import org.junit.Test;
 import retrofit2.Call;
@@ -76,15 +75,14 @@ public class ServiceTest {
         Call<Appointment> call = service.findById(15);
         Appointment appointment = call.execute().body();
         assert appointment != null;
-        //appointment.setActive(true);
+        appointment.setActive(true);
         Call<Appointment> updateCall = service.update(appointment.getId(), appointment);
         updateCall.enqueue(new Callback<Appointment>() {
             @Override
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
-                if (response.isSuccessful()) {
-                    Appointment updateAppointment = response.body();
-                    assert updateAppointment != null;
-                    updateAppointment.setActive(true);
+                if (!response.isSuccessful()) {
+                    System.out.println("Fallo de llamado");
+                    return;
                 }
             }
 

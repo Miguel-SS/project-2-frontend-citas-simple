@@ -18,7 +18,7 @@ public interface AppointmentService {
     @POST("appointments")
     Call<Appointment> save(@Body Appointment appointment);
 
-    @PUT("appointments/{id}/")
+    @PUT("appointments/{id}")
     Call<Appointment> update(@Path("id") int id, @Body Appointment appointment);
 
     @DELETE("appointments/{id}/")

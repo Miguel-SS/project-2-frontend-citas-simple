@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private String typeService;
     private AppointmentService appointmentService;
-    //private Appointment appointment;
+    private Appointment appointment;
+
     private EditText idAppointment;
     private Button searchBtn;
     private TextView patientTxt;
@@ -91,37 +92,30 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Appointment> call, Throwable t) {
-                //Notifiquen con un toast o algun mensaje que la llamada al servicio falló, el objeto Throwable siempre tiene
-                //más información del error que les va a seguir para arreglar errores en caso de fallo
                 Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private void printAppointmentInfo(final Appointment appointment){
-        /**
-         * Notas de Jason:
-         Cuando se modifica cualquier componente del UI, y la acción es invocada desde un hilo secundario,
-         como en este caso que están haciendo un setText que se invoca desde el onResponse de retrofit,
-         deben asegurarse que la acción se realiza en el hilo principal del app. No estoy 100% seguro si Retrofit
-         ya se asegura que los callbacks del enqueue se retornen en el hilo principal, pero por si les fallara, les
-         dejo acá como pueden hacer para solucioar el problema.
-         El método runOnUIThread obliga que el contenido del Runnable se ejecute de esa forma.
-         */
+    private void printAppointmentInfo(final Appointment appointmentAux){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (appointment != null) {
-                    patientTxt.setText(getString(R.string.nameLbl) + " " + appointment.getPatient().getName() + " " +
-                            appointment.getPatient().getLastName());
-                    doctorTxt.setText( getString(R.string.doctorLbl) + " " + appointment.getDoctor().getName() + " " +
-                            appointment.getDoctor().getLastName());
+                if (appointmentAux != null) {
+                    appointment = appointmentAux;
+
+                    patientTxt.setText(getString(R.string.nameLbl) + " " +
+                            appointmentAux.getPatient().getName() + " " +
+                            appointmentAux.getPatient().getLastName());
+                    doctorTxt.setText( getString(R.string.doctorLbl) + " " +
+                            appointmentAux.getDoctor().getName() + " " +
+                            appointmentAux.getDoctor().getLastName());
                     dateTxt.setText(getString(R.string.dateLbl)  + " " +
-                            appointment.getDate().getDay() + "/" +
-                            appointment.getDate().getMonth() + "/" +
-                            appointment.getDate().getYear());
-                    getTypeOfService(appointment.getTypeOfService_id());
+                            appointmentAux.getDate().getDay() + "/" +
+                            appointmentAux.getDate().getMonth() + "/" +
+                            appointmentAux.getDate().getYear());
+                    getTypeOfService(appointmentAux.getTypeOfService_id());
                     typeTxt.setText(getString(R.string.serviceLbl)  + " " + typeService);
-                    costTxt.setText(getString(R.string.costLbl)  + " " + String.valueOf(appointment.getTotalCost()));
+                    costTxt.setText(getString(R.string.costLbl)  + " " + appointmentAux.getTotalCost());
                 } else {
                     Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
                 }
@@ -131,9 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      *
-     *
      * @param id id
-     * @return type of service from data base.
      */
     private void getTypeOfService(String id) {
         Call<TypeOfService> request = appointmentService.findTypeById(id);
@@ -148,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
 
@@ -168,6 +159,33 @@ public class MainActivity extends AppCompatActivity {
         dateTxt.setText(getString(R.string.dateLbl));
         typeTxt.setText(getString(R.string.serviceLbl));
         costTxt.setText(getString(R.string.costLbl));
+
+        Call<Appointment> request = appointmentService.update(appointment.getId(), appointment);
+
+        appointment.setActive(true);
+
+        request.enqueue(new Callback<Appointment>() {
+            @Override
+            public void onResponse(Call<Appointment> call, Response<Appointment> response) {
+                if (response.isSuccessful()) {
+                    //updateAppointment(appointment);
+                } else Toast.makeText(getBaseContext(), "Respuesta fallida", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Appointment> call, Throwable t) {
+                Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateAppointment(final Appointment appointmentAux){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                appointmentAux.setActive(true);
+            }
+        });
     }
 
 }
