@@ -10,6 +10,7 @@ import android.os.Bundle;
 import cr.una.frontend.R;
 import cr.una.frontend.model.Appointment;
 import cr.una.frontend.service.AppointmentService;
+import cr.una.frontend.service.Service;
 import cr.una.frontend.utilities.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,10 +44,7 @@ public class MainActivity extends Activity {
          * así cada actividad simplemente llama al mismo método get y el código se ve más limpio :)
          * */
         //init the retrofit
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.WS_ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        retrofit = Service.getRetrofit();
         appointmentService = retrofit.create(AppointmentService.class);
         initWidgets();
     }
