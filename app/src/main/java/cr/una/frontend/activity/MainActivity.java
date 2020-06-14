@@ -10,6 +10,7 @@ import android.os.Bundle;
 import cr.una.frontend.R;
 import cr.una.frontend.model.Appointment;
 import cr.una.frontend.service.AppointmentService;
+import cr.una.frontend.service.Service;
 import cr.una.frontend.utilities.Constants;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -38,10 +39,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //init the retrofit
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.WS_ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        retrofit = Service.getRetrofit();
         appointmentService = retrofit.create(AppointmentService.class);
 
         initWidgets();
