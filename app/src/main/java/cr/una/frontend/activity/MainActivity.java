@@ -19,6 +19,7 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     private Retrofit retrofit;
+    private String typeService;
     private AppointmentService appointmentService;
     //private Appointment appointment;
     private EditText idAppointment;
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         appointment.getDate().getDay() + "/" +
                         appointment.getDate().getMonth() + "/" +
                         appointment.getDate().getYear());
+                getTypeInfo( getTypeOfService(appointment.getTypeOfService_id()));
                 typeTxt.setText(getString(R.string.serviceLbl)  + " " +
                         getTypeOfService(appointment.getTypeOfService_id()));
                 costTxt.setText(getString(R.string.costLbl)  + " " + appointment.getTotalCost());
@@ -121,13 +123,12 @@ public class MainActivity extends AppCompatActivity {
      * @param id id
      * @return type of service from data base.
      */
-    private TypeOfService getTypeOfService(String id) {
-        final TypeOfService[] type = {null};
+    private void getTypeOfService(String id) {
         Call<TypeOfService> request = appointmentService.findTypeById(id);
         request.enqueue(new Callback<TypeOfService>() {
             @Override
             public void onResponse(Call<TypeOfService> call, Response<TypeOfService> response) {
-                type[0] = getTypeInfo(response.body());
+                 getTypeInfo(response.body());
             }
 
             @Override
@@ -135,14 +136,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        return type[0];
+
     }
 
 
-    private TypeOfService getTypeInfo(final TypeOfService typeOfService){
-        final TypeOfService[] type = {null};
-        runOnUiThread(() -> type[0] = typeOfService);
-        return type[0];
+    private void getTypeInfo(final TypeOfService typeOfService){
+        runOnUiThread(() -> typeService = typeOfService.getService());
     }
 
 
