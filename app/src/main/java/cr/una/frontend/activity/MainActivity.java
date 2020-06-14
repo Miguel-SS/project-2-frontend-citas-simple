@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         acceptBtn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            upDateLbls();
+            updateLbls();
         }
     });
 
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                             appointment.getDate().getYear());
                     typeTxt.setText(getString(R.string.serviceLbl)  + " " +
                             getTypeOfService(appointment.getTypeOfService_id()));
-                    costTxt.setText(getString(R.string.costLbl)  + " " + String.valueOf(appointment.getTotalCost()));
+                    costTxt.setText(getString(R.string.costLbl)  + " " + appointment.getTotalCost());
                 } else {
                     Toast.makeText(getBaseContext(), "Cita no encontrada", Toast.LENGTH_SHORT).show();
                 }
@@ -162,12 +162,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-private void upDateLbls(){
-    patientTxt.setText(getString(R.string.nameLbl));
-    doctorTxt.setText(getString(R.string.doctorLbl));
-    dateTxt.setText(getString(R.string.dateLbl));
-    typeTxt.setText(getString(R.string.serviceLbl));
-    costTxt.setText(getString(R.string.costLbl));
-}
+    private void updateLbls(){
+        patientTxt.setText(getString(R.string.nameLbl));
+        doctorTxt.setText(getString(R.string.doctorLbl));
+        dateTxt.setText(getString(R.string.dateLbl));
+        typeTxt.setText(getString(R.string.serviceLbl));
+        costTxt.setText(getString(R.string.costLbl));
+    }
 
 }
