@@ -159,13 +159,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void updateAppointment(final Appointment appointmentAux){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                appointmentAux.setActive(true);
-            }
-        });
-    }
-
 }
