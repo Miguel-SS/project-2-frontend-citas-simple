@@ -142,8 +142,12 @@ public class MainActivity extends AppCompatActivity {
 
         Call<Appointment> request = appointmentService.update(appointment);
 
-        appointment.setActive(true);
-
+        if(appointment.isActive() == false) {
+            appointment.setActive(true);
+        }
+        else{
+            Toast.makeText(getBaseContext(), "Cita anterirmente confirmada", Toast.LENGTH_SHORT);
+        }
         request.enqueue(new Callback<Appointment>() {
             @Override
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
