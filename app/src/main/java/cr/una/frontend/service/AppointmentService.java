@@ -18,8 +18,8 @@ public interface AppointmentService {
     @POST("appointments")
     Call<Appointment> save(@Body Appointment appointment);
 
-    @PUT("appointments/{id}/")
-    Call<Appointment> update(@Path("id") int id, @Body Appointment appointment);
+    @PUT("appointments")
+    Call<Appointment> update(@Body Appointment appointment);
 
     @DELETE("appointments/{id}/")
     Call<Void> delete(@Path("id") int id);
