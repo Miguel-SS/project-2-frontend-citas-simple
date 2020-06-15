@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         binding.serviceTxt.setText(getString(R.string.serviceLbl));
         binding.costTxt.setText(getString(R.string.costLbl));
 
-        Call<Appointment> request = appointmentService.update(appointment.getId(), appointment);
+        Call<Appointment> request = appointmentService.update(appointment);
 
         appointment.setActive(true);
 
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
                 if (response.isSuccessful()) {
-                    //updateAppointment(appointment);
+                    Toast.makeText(getBaseContext(), "Cita confirmada", Toast.LENGTH_SHORT);
                 } else Toast.makeText(getBaseContext(), "Respuesta fallida", Toast.LENGTH_SHORT).show();
             }
 

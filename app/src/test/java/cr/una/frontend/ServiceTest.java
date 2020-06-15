@@ -76,7 +76,7 @@ public class ServiceTest {
         Appointment appointment = call.execute().body();
         assert appointment != null;
         appointment.setActive(true);
-        Call<Appointment> updateCall = service.update(appointment.getId(), appointment);
+        Call<Appointment> updateCall = service.update(appointment);
         updateCall.enqueue(new Callback<Appointment>() {
             @Override
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
